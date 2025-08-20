@@ -103,3 +103,15 @@ export const NyadgeSprite: React.FC = () => {
 ## 5. 状態管理（State Management）
 - 方針に変更はありません。`useState`によるローカルステートと、**Context API**によるグローバルステート（`gameState`）を使い分けます。
 - `gameState`は、DOMコンポーネントとCanvasコンポーネントの両方から参照される、唯一の信頼できる情報源（Single Source of Truth）となります。
+
+## 6. DOMとCanvasの連携
+
+DOMレイヤーのイベントをきっかけに、Canvasレイヤーの表示を更新する際の基本的な連携フローは以下の通りです。
+
+1.  **イベント発生（DOMレイヤー）**: ユーザーがDOM上のコンポーネント（例: `Button`）を操作します。
+2.  **状態更新関数の呼び出し**: `Button`コンポーネントの`onClick`イベントハンドラが、Contextから提供された状態更新関数（例: `actions.developNewMenu()`）を呼び出します。
+3.  **グローバル状態の更新**: 状態更新関数が`useReducer`の`dispatch`などを通じて、`GameState`を更新します。
+4.  **再レンダリングのトリガー**: `GameState`の更新により、その値を購読しているすべてのコンポーネント（DOM/Canvas双方）に再レンダリングがトリガーされます。
+5.  **表示の更新（Canvasレイヤー）**: Canvas上のコンポーネント（例: `NyadgeSprite`）は、新しい`GameState`の値（例: `gameState.nyadge.emotion`が`'happy'`に変わる）を元に自身の表示を更新します。例えば、新しいスプライトアニメーションに切り替える、エフェクトを表示するなどです。
+
+この一方向のデータフロー（**UI → Action → State → View**）を徹底することで、DOMとCanvasという異なる描画技術間でも、予測可能で堅牢な状態管理を実現します。
