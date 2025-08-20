@@ -9,6 +9,7 @@
 *   **コンセプト**
     *   [ゲーム概要 (overview.md)](docs/dev/overview.md)
     *   [世界観・ストーリー (story.md)](docs/dev/story.md)
+    *   [用語集 (glossarry.md)](docs/dev/glossary.md)
 *   **ゲームデザイン**
     *   [ゲームシステム (system.md)](docs/dev/system.md)
     *   [ゲームシナリオ (game-scenario.md)](docs/dev/game-scenario.md)
