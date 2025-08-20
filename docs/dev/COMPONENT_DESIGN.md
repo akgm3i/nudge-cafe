@@ -75,7 +75,7 @@ import { useNyadge } from '../../hooks/useNyadge';
 import useImage from 'use-image';
 
 // ニャッジのスプライトシートを読み込む
-const NyadgeSpriteSheet: React.FC = () => {
+export const NyadgeSprite: React.FC = () => {
   const { pos, animation } = useNyadge();
   const [image] = useImage('/assets/nyadge-sprite.png');
 
