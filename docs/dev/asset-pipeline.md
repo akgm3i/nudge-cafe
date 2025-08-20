@@ -4,7 +4,7 @@
 
 ## 1. 基本方針
 
-- **命名規則**: すべてのアセットファイル名は、`kebab-case`（例: `main-character-idle.png`）または `snake_case`（例: `main_character_idle.png`）で統一し、そのアセットの内容が明確にわかるように命名します。
+- **命名規則**: すべてのアセットファイル名は、`kebab-case`（例: `main-character-idle.png`）で統一し、そのアセットの内容が明確にわかるように命名します。
 - **ディレクトリ構造**: アセットの種類ごとに、`src/assets/` ディレクトリ以下にサブディレクトリを作成して管理します。
   - `src/assets/images/characters/`
   - `src/assets/images/ui/`
@@ -20,7 +20,7 @@
 - **スプライトシート**:
   - キャラクターなどのアニメーションは、スプライトシートとして1枚の画像にまとめます。
   - アニメーションの各フレームは、グリッド状に等間隔で配置します。
-  - フレームサイズやアニメーションのシーケンス（例：`idle`がどのフレームか）は、`react-konva`の`animations`プロパティで定義します（`COMPONENT_DESIGN.md`参照）。
+  - フレームサイズやアニメーションのシーケンス（例：`idle`がどのフレームか）は、`react-konva`の`animations`プロパティで定義します（`component-design.md`参照）。
 - **最適化**:
   - デプロイ前に、すべての画像アセットに対して画像圧縮ツール（例: [TinyPNG](https://tinypng.com/), ImageOptim）を適用し、ファイルサイズを削減することを推奨します。
 
