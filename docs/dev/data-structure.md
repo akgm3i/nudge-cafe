@@ -75,6 +75,7 @@ interface Decoration {
   name: string; // アイテム名
   area: 'counter' | 'window' | 'wall'; // 配置可能なエリア
 }
+```
 
 ## 3. セーブ/ロード機構
 
@@ -103,5 +104,4 @@ const initialGameState: GameState = {
   currentLayout: {},
   unlockedRecipeHints: [],
 };
-```
 ```
