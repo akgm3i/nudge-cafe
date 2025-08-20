@@ -4,7 +4,7 @@
 
 ## 1. 基本方針
 
-- **命名規則**: すべてのアセットファイル名は、`kebab-case`（例: `main-character-idle.png`）または `snake_case`（例: `main_character_idle.png`）で統一し、そのアセットの内容が明確にわかるように命名します。
+- **命名規則**: すべてのアセットファイル名は、`kebab-case`（例: `main-character-idle.png`）で統一し、そのアセットの内容が明確にわかるように命名します。
 - **ディレクトリ構造**: アセットの種類ごとに、`src/assets/` ディレクトリ以下にサブディレクトリを作成して管理します。
   - `src/assets/images/characters/`
   - `src/assets/images/ui/`
