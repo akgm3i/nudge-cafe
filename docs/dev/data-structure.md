@@ -76,3 +76,32 @@ interface Decoration {
   area: 'counter' | 'window' | 'wall'; // 配置可能なエリア
 }
 ```
+
+## 3. セーブ/ロード機構
+
+- **永続化技術**: ブラウザの `localStorage` を使用します。
+- **保存タイミング**: プレイヤーが重要なアクション（メニュー開発、内装変更、チャプタークリアなど）を完了した際、および設定画面から手動でセーブした際に、`GameState`オブジェクト全体が自動的に保存されます。
+- **データ形式**: `GameState` オブジェクトを `JSON.stringify()` で文字列にシリアライズし、キー `'cocologic-cafe-save-data'` の値として `localStorage` に保存します。
+- **ロードタイミング**: ゲーム起動時に、`localStorage` に該当キーのデータが存在すれば、それを `JSON.parse()` でデシリアライズしてゲーム状態を復元します。データが存在しない場合は、下記の初期状態でゲームを開始します。
+
+## 4. ゲームの初期状態
+
+新規ゲーム開始時の `GameState` の初期値は以下のように定義されます。これは、最終的に `src/constants/initialGameState.ts` のような定数ファイルとして実装されることを想定しています。
+
+```typescript
+const initialGameState: GameState = {
+  money: 1000,
+  reputation: 0,
+  currentChapterId: 'prologue',
+  completedEventIds: [],
+  discoveryMemo: [],
+  developedMenus: [
+    // 初期からあるメニューなど
+  ],
+  unlockedDecorations: [
+    // 初期からある内装など
+  ],
+  currentLayout: {},
+  unlockedRecipeHints: [],
+};
+```

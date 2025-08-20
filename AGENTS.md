@@ -6,11 +6,21 @@
 
 開発の各フェーズで、以下のドキュメントを参照してください。
 
-*   **[ゲーム概要](docs/dev/概要.md)**
-*   **[UI/UX](docs/dev/UIUX.md)**
-*   **[ゲームシステム](docs/dev/システム.md)**
-*   **[ゲームストーリー](docs/dev/ストーリー.md)**
-*   **[グラフィックデザイン](docs/dev/デザイン.md)**
+*   **コンセプト**
+    *   [ゲーム概要 (overview.md)](docs/dev/overview.md)
+    *   [世界観・ストーリー (story.md)](docs/dev/story.md)
+    *   [用語集 (glossary.md)](docs/dev/glossary.md)
+*   **ゲームデザイン**
+    *   [ゲームシステム (system.md)](docs/dev/system.md)
+    *   [ゲームシナリオ (game-scenario.md)](docs/dev/game-scenario.md)
+*   **アセット・UI/UXデザイン**
+    *   [UI/UX (uiux.md)](docs/dev/uiux.md)
+    *   [グラフィックデザイン (design.md)](docs/dev/design.md)
+    *   [アニメーション/サウンド (animation-sound.md)](docs/dev/animation-sound.md)
+*   **技術設計**
+    *   [コンポーネント設計 (component-design.md)](docs/dev/component-design.md)
+    *   [データ構造 (data-structure.md)](docs/dev/data-structure.md)
+    *   [アセットパイプライン (asset-pipeline.md)](docs/dev/asset-pipeline.md)
 
 ## 2. タスクの進め方
 
