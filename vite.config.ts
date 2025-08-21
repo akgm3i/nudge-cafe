@@ -7,9 +7,10 @@ export default defineConfig({
   plugins: [react()],
   test: {
     browser: {
-      enabled: true,
-      name: 'chrome',
       provider: 'playwright',
+      enabled: true,
+      headless: true,
+      instances: [{ browser: 'chromium' }],
     },
   },
 })
