@@ -10,7 +10,8 @@ export default tseslint.config(
     ignores: ['dist/'],
   },
   js.configs.recommended,
-  tseslint.configs.recommended,
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
   {
     files: ['**/*.{ts,tsx}'],
     plugins: {
@@ -25,6 +26,10 @@ export default tseslint.config(
       ],
     },
     languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
       globals: {
         ...globals.browser,
       },
