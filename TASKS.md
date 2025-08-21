@@ -60,14 +60,14 @@
 
 ## Phase 1: プロジェクト基盤の構築
 
-- [ ] **タスク: React+TypeScriptプロジェクトの初期セットアップ**
+- [x] **タスク: React+TypeScriptプロジェクトの初期セットアップ**
     - 内容: `create-react-app`等を用いてプロジェクトを作成し、Linter/Formatter(ESLint/Prettier)を導入。基本的なディレクトリ構成を整備する。
     - 参照: `docs/dev/overview.md`
     - 完了要件:
-        - [ ] React+TypeScriptのプロジェクトが作成されている。
-        - [ ] `src/components`, `src/pages`, `src/hooks`, `src/types` などの基本的なディレクトリが整備されている。
-        - [ ] `npm run lint`, `npm run format` が利用可能。
-    - 進捗: 未着手。
+        - [x] React+TypeScriptのプロジェクトが作成されている。
+        - [x] `src/components`, `src/pages`, `src/hooks`, `src/types` などの基本的なディレクトリが整備されている。
+        - [x] `npm run lint`, `npm run format` が利用可能。
+    - 進捗: 完了。
 
 - [ ] **タスク: GitHub ActionsによるCI/CDパイプラインの構築**
     - 内容: push時に自動でビルド、テスト、デプロイが行われるワークフローを構築する。
