@@ -69,13 +69,13 @@
         - [x] `npm run lint`, `npm run format` が利用可能。
     - 進捗: 完了。
 
-- [ ] **タスク: GitHub ActionsによるCI/CDパイプラインの構築**
+- [x] **タスク: GitHub ActionsによるCI/CDパイプラインの構築**
     - 内容: push時に自動でビルド、テスト、デプロイが行われるワークフローを構築する。
     - 参照: `docs/dev/overview.md`, `docs/dev/asset-pipeline.md`
     - 完了要件:
-        - [ ] push時に`npm run build`が実行され、成功することを確認する。
-        - [ ] mainブランチへのマージ時にGitHub Pagesへ自動デプロイされる。
-    - 進捗: 未着手。
+        - [x] push時に`npm run build`が実行され、成功することを確認する。
+        - [x] mainブランチへのマージ時にGitHub Pagesへ自動デプロイされる。
+    - 進捗: 完了。
 
 - [ ] **タスク: メイン画面の基本レイアウト実装**
     - 内容: ヘッダー、メインビュー、フッターの3つの領域を持つ基本的なレイアウトコンポーネントを実装する。
