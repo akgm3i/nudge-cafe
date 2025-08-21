@@ -43,16 +43,19 @@ src
 ## 4. コンポーネント設計
 
 ### DOMコンポーネント (`/components`)
+
 - `Button`や`Modal`などのUI要素です。
 - 設計思想は旧版と同様、カスタムフック（`useHoge`）からロジックを受け取り、自身はUIのレンダリングに集中します。
 
 ### Canvasコンポーネント (`/canvas`)
+
 - `react-konva`の`<Layer>`, `<Rect>`, `<Image>`, `<Sprite>`などを用いて、ゲーム世界の要素を表現します。
 - これらもReactコンポーネントであるため、Propsを受け取ったり、Contextからグローバル状態を購読したりできます。
 
 ### 具体例：ニャッジの表示
 
 **ロジック: `src/hooks/useNyadge.ts`**
+
 ```typescript
 import { useState } from 'react';
 
@@ -68,6 +71,7 @@ export const useNyadge = () => {
 ```
 
 **Canvasコンポーネント: `src/canvas/characters/Nyadge.tsx`**
+
 ```typescript
 import React from 'react';
 import { Sprite } from 'react-konva';
@@ -98,9 +102,11 @@ export const NyadgeSprite: React.FC = () => {
   );
 };
 ```
-*（注: 上記は`react-konva`と`use-image`ライブラリの使用を想定したコード例です）*
+
+_（注: 上記は`react-konva`と`use-image`ライブラリの使用を想定したコード例です）_
 
 ## 5. 状態管理（State Management）
+
 - 方針に変更はありません。`useState`によるローカルステートと、**Context API**によるグローバルステート（`gameState`）を使い分けます。
 - `gameState`は、DOMコンポーネントとCanvasコンポーネントの両方から参照される、唯一の信頼できる情報源（Single Source of Truth）となります。
 
