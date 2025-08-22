@@ -1,9 +1,9 @@
 import React, { type ReactNode } from 'react';
 import styles from './MainLayout.module.css';
 
-type MainLayoutProps = {
+interface MainLayoutProps {
   children: ReactNode;
-};
+}
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (

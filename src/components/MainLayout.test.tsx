@@ -4,7 +4,11 @@ import MainLayout from './MainLayout';
 
 describe('MainLayout', () => {
   test('renders the main layout structure', async () => {
-    const screen = render(<MainLayout><div>Test</div></MainLayout>);
+    const screen = render(
+      <MainLayout>
+        <div>Test</div>
+      </MainLayout>
+    );
 
     // Check for landmark regions
     const header = screen.getByRole('banner');
@@ -17,7 +21,11 @@ describe('MainLayout', () => {
   });
 
   test('renders header content correctly', async () => {
-    const screen = render(<MainLayout><div>Test</div></MainLayout>);
+    const screen = render(
+      <MainLayout>
+        <div>Test</div>
+      </MainLayout>
+    );
 
     // Check for resource placeholders by looking for the icons and numbers
     const moneyDisplay = screen.getByText(/🪙\s*100/);
@@ -31,7 +39,11 @@ describe('MainLayout', () => {
   });
 
   test('renders footer content correctly', async () => {
-    const screen = render(<MainLayout><div>Test</div></MainLayout>);
+    const screen = render(
+      <MainLayout>
+        <div>Test</div>
+      </MainLayout>
+    );
 
     // Check for footer buttons
     const noteButton = screen.getByRole('button', { name: 'ノート' });
@@ -44,7 +56,11 @@ describe('MainLayout', () => {
   });
 
   test('renders children inside the main area', async () => {
-    const screen = render(<MainLayout><h1>Child Content</h1></MainLayout>);
+    const screen = render(
+      <MainLayout>
+        <h1>Child Content</h1>
+      </MainLayout>
+    );
     const child = screen.getByRole('heading', { level: 1 });
     await expect.element(child).toHaveTextContent('Child Content');
   });
