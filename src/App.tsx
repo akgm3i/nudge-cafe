@@ -1,8 +1,10 @@
+import MainLayout from './components/MainLayout';
+
 function App() {
   return (
-    <div>
+    <MainLayout>
       <h1>ココロジック・カフェ</h1>
-    </div>
+    </MainLayout>
   );
 }
 
