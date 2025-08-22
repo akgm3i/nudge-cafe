@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
+import styles from './MainLayout.module.css';
 
 type MainLayoutProps = {
   children: ReactNode;
@@ -6,22 +7,22 @@ type MainLayoutProps = {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <header role="banner" style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div className={styles.container}>
+      <header role="banner" className={styles.header}>
+        <div className={styles.headerContent}>
           <div>
-            <span style={{ marginRight: '1.5rem' }}>🪙 100</span>
+            <span className={styles.resource}>🪙 100</span>
             <span>⭐ 5</span>
           </div>
           <button aria-label="設定">⚙️</button>
         </div>
       </header>
 
-      <main role="main" style={{ flex: 1, padding: '1rem' }}>
+      <main role="main" className={styles.main}>
         {children}
       </main>
 
-      <footer role="contentinfo" style={{ padding: '1rem', borderTop: '1px solid #eee', display: 'flex', justifyContent: 'space-around' }}>
+      <footer role="contentinfo" className={styles.footer}>
         <button>ノート</button>
         <button>メニュー開発</button>
         <button>内装変更</button>
