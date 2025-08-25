@@ -17,8 +17,8 @@ interface GameState {
   currentChapterId: string;
   completedEventIds: string[];
 
-  // 発見メモの内容
-  discoveryMemo: DiscoveryMemoEntry[];
+  // 発見ノートの内容
+  discoveryNote: DiscoveryNoteEntry[];
 
   // 開発済みのメニュー
   developedMenus: Menu[];
@@ -29,24 +29,37 @@ interface GameState {
   // 現在のカフェの内装レイアウト
   // keyは 'counter', 'window' などの配置エリアID
   currentLayout: Record<string, string>; // { [areaId: string]: decorationId; }
-
-  // 解読済みのレシピノートのヒント
-  unlockedRecipeHints: string[];
 }
 ```
 
 ## 2. 各データ構造の詳細
 
-### DiscoveryMemoEntry
+### DiscoveryNoteEntry
 
-「発見メモ」に記録される単一のエントリです。祖父の詩と、それに対応するプレイヤーの発見（行動経済学の概念）を紐付けます。
+「発見ノート」に記録される単一のエントリです。プレイヤー自身の体験と発見を記録します。
 
 ```typescript
-interface DiscoveryMemoEntry {
-  id: string; // 発見ID (例: 'decoy-effect')
-  poem: string; // 祖父の詩
-  discovery: string; // プレイヤーが発見した概念
-  isNew: boolean; // 新しく発見した際にtrueとなり、通知などに使われる
+interface DiscoveryNoteEntry {
+  id: string; // 発見ID (例: 'discovery-001')
+  triggerEventId: string; // きっかけとなった物語イベントのID
+
+  // きっかけ（WHY）
+  why: string; // ホーソーン教授との会話で生まれた疑問
+
+  // やってみたこと（HOW）
+  how: {
+    actionId: string; // プレイヤーが実行した施策のID
+    description: string; // 施策の概要 (例: 「一番高い商品をメニューの最初に載せてみた」)
+  };
+
+  // わかったこと（WHAT）
+  what: {
+    resultType: 'SUCCESS' | 'FAILURE' | 'NO_CHANGE'; // 結果のタイプ
+    description: string; // 結果の具体的な内容 (例: 「お客さんの滞在時間が増え、リラックスしているように見えた」)
+  };
+
+  // まとめ（MEMO）
+  memo: string; // 自分の発見を一言でまとめたもの
 }
 ```
 
@@ -80,7 +93,7 @@ interface Decoration {
 ## 3. セーブ/ロード機構
 
 - **永続化技術**: ブラウザの `localStorage` を使用します。
-- **保存タイミング**: プレイヤーが重要なアクション（メニュー開発、内装変更、チャプタークリアなど）を完了した際、および設定画面から手動でセーブした際に、`GameState`オブジェクト全体が自動的に保存されます。
+- **保存タイミング**: プレイヤーが重要なアクション（メニュー開発、内装変更、チャプタークリア、ノート記録など）を完了した際、および設定画面から手動でセーブした際に、`GameState`オブジェクト全体が自動的に保存されます。
 - **データ形式**: `GameState` オブジェクトを `JSON.stringify()` で文字列にシリアライズし、キー `'cocologic-cafe-save-data'` の値として `localStorage` に保存します。
 - **ロードタイミング**: ゲーム起動時に、`localStorage` に該当キーのデータが存在すれば、それを `JSON.parse()` でデシリアライズしてゲーム状態を復元します。データが存在しない場合は、下記の初期状態でゲームを開始します。
 
@@ -94,7 +107,7 @@ const initialGameState: GameState = {
   reputation: 0,
   currentChapterId: 'prologue',
   completedEventIds: [],
-  discoveryMemo: [],
+  discoveryNote: [],
   developedMenus: [
     // 初期からあるメニューなど
   ],
@@ -102,6 +115,5 @@ const initialGameState: GameState = {
     // 初期からある内装など
   ],
   currentLayout: {},
-  unlockedRecipeHints: [],
 };
 ```
