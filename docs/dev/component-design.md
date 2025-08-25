@@ -31,7 +31,7 @@ src
 │   ├── /characters/  # ニャッジ、お客さんなどのキャラクター
 │   └── /stage/       # 背景、家具などのステージ要素
 ├── /components/      # DOMレイヤーを構成するReactコンポーネント
-│   ├── /domain/      # ゲームのドメインに特化したコンポーネント (例: RecipeNote)
+│   ├── /domain/      # ゲームのドメインに特化したコンポーネント (例: ExperimentLog)
 │   └── /ui/          # 汎用的なUIパーツ (例: Button, Modal)
 ├── /contexts/        # グローバルな状態を共有するためのReact Context
 ├── /hooks/           # UI/Canvas双方で利用するカスタムフック（ビジネスロジック）
