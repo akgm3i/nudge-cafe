@@ -1,10 +1,17 @@
 import { create } from 'zustand';
 import { GamePhase, type Dialogue, ConsequenceType } from '../types/game';
-import {
-  type CharacterState,
-  CharacterId,
-  CharacterAnimation,
-} from '../types/character';
+import { characterRegistry, type CharacterId } from '../data/characters';
+import { type CharacterState, CharacterAnimation } from '../types/character';
+
+const initialCharacterStates = Object.fromEntries(
+  Object.values(characterRegistry).map((char) => [
+    char.id,
+    {
+      isVisible: true,
+      animation: CharacterAnimation.IDLE,
+    },
+  ])
+) as Record<CharacterId, CharacterState>;
 
 interface GameState {
   phase: GamePhase;
@@ -26,16 +33,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   phase: GamePhase.EXPERIENCE,
   activeDialogue: null,
   money: 100,
-  characters: {
-    [CharacterId.NYAJJI]: {
-      isVisible: true,
-      animation: CharacterAnimation.IDLE,
-    },
-    [CharacterId.PROFESSOR_HAWTHORNE]: {
-      isVisible: true,
-      animation: CharacterAnimation.IDLE,
-    },
-  },
+  characters: initialCharacterStates,
   setPhase: (newPhase) => {
     set({ phase: newPhase });
   },

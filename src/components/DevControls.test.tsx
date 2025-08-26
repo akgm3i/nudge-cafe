@@ -2,7 +2,8 @@ import { test, expect, describe, beforeEach, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
 import DevControls from './DevControls';
 import { useGameStore } from '../stores/useGameStore';
-import { CharacterId, CharacterAnimation } from '../types/character';
+import { CharacterAnimation } from '../types/character';
+import { characterRegistry } from '../data/characters';
 
 // Mock the store actions we want to spy on
 const toggleCharacterVisibility = vi.fn();
@@ -22,63 +23,61 @@ describe('DevControls', () => {
     });
   });
 
-  test('renders character control buttons', () => {
+  test('renders character control buttons for all registered characters', () => {
     const screen = render(<DevControls />);
-    expect(
-      screen.getByRole('button', { name: 'Toggle Nyajji' })
-    ).not.toBeNull();
-    expect(
-      screen.getByRole('button', { name: 'Toggle Professor' })
-    ).not.toBeNull();
-    expect(screen.getByRole('button', { name: 'Nyajji: Idle' })).not.toBeNull();
-    expect(
-      screen.getByRole('button', { name: 'Nyajji: Talking' })
-    ).not.toBeNull();
-    expect(screen.getByRole('button', { name: 'Prof: Idle' })).not.toBeNull();
-    expect(
-      screen.getByRole('button', { name: 'Prof: Talking' })
-    ).not.toBeNull();
+    for (const char of Object.values(characterRegistry)) {
+      expect(screen.getByText(char.displayName)).not.toBeNull();
+    }
   });
 
-  test('calls toggleCharacterVisibility when visibility buttons are clicked', async () => {
+  test('calls store actions with correct characterId when buttons are clicked', async () => {
     const screen = render(<DevControls />);
 
-    await screen.getByRole('button', { name: 'Toggle Nyajji' }).click();
-    expect(toggleCharacterVisibility).toHaveBeenCalledWith(CharacterId.NYAJJI);
+    for (const char of Object.values(characterRegistry)) {
+      const charContainer = screen.getByTestId(`character-controls-${char.id}`);
+      expect(charContainer).not.toBeNull();
 
-    await screen.getByRole('button', { name: 'Toggle Professor' }).click();
-    expect(toggleCharacterVisibility).toHaveBeenCalledWith(
-      CharacterId.PROFESSOR_HAWTHORNE
-    );
+      // Test Toggle button
+      await charContainer.getByRole('button', { name: 'Toggle' }).click();
+      expect(toggleCharacterVisibility).toHaveBeenCalledWith(char.id);
+
+      // Test Idle button
+      await charContainer.getByRole('button', { name: 'Idle' }).click();
+      expect(setCharacterAnimation).toHaveBeenCalledWith(
+        char.id,
+        CharacterAnimation.IDLE
+      );
+
+      // Test Talking button
+      await charContainer.getByRole('button', { name: 'Talking' }).click();
+      expect(setCharacterAnimation).toHaveBeenCalledWith(
+        char.id,
+        CharacterAnimation.TALKING
+      );
+    }
   });
 
-  test('calls setCharacterAnimation when animation buttons are clicked', async () => {
+  test('toggles the control panel visibility', async () => {
     const screen = render(<DevControls />);
 
-    // Test Nyajji's buttons
-    await screen.getByRole('button', { name: 'Nyajji: Talking' }).click();
-    expect(setCharacterAnimation).toHaveBeenCalledWith(
-      CharacterId.NYAJJI,
-      CharacterAnimation.TALKING
-    );
+    // Find and click the close button
+    await screen.getByRole('button', { name: 'Close' }).click();
 
-    await screen.getByRole('button', { name: 'Nyajji: Idle' }).click();
-    expect(setCharacterAnimation).toHaveBeenCalledWith(
-      CharacterId.NYAJJI,
-      CharacterAnimation.IDLE
-    );
+    // The main panel should be gone, only the "Open" button should be visible
+    const heading = screen.container.querySelector('h3');
+    expect(heading).toBeNull();
 
-    // Test Professor's buttons
-    await screen.getByRole('button', { name: 'Prof: Talking' }).click();
-    expect(setCharacterAnimation).toHaveBeenCalledWith(
-      CharacterId.PROFESSOR_HAWTHORNE,
-      CharacterAnimation.TALKING
-    );
+    const openButton = screen.getByRole('button', {
+      name: 'Open Dev Controls',
+    });
+    expect(openButton).not.toBeNull();
 
-    await screen.getByRole('button', { name: 'Prof: Idle' }).click();
-    expect(setCharacterAnimation).toHaveBeenCalledWith(
-      CharacterId.PROFESSOR_HAWTHORNE,
-      CharacterAnimation.IDLE
-    );
+    // Click the open button
+    await openButton.click();
+
+    // The main panel should be back
+    const headingAfterOpen = screen.container.querySelector('h3');
+    expect(headingAfterOpen).not.toBeNull();
+    expect(headingAfterOpen?.textContent).toBe('Dev Controls');
   });
 });

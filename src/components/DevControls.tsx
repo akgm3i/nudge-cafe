@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGameStore } from '../stores/useGameStore';
 import { GamePhase } from '../types/game';
-import { CharacterAnimation, CharacterId } from '../types/character';
+import { CharacterAnimation } from '../types/character';
+import { characterRegistry, type CharacterId } from '../data/characters';
 
 const DevControls: React.FC = () => {
   const { setPhase, toggleCharacterVisibility, setCharacterAnimation } =
     useGameStore();
+  const [isOpen, setIsOpen] = useState(true);
+
+  if (!isOpen) {
+    return (
+      <button
+        style={{
+          position: 'fixed',
+          top: 10,
+          left: 10,
+          zIndex: 9999,
+        }}
+        onClick={() => setIsOpen(true)}
+      >
+        Open Dev Controls
+      </button>
+    );
+  }
 
   return (
     <div
@@ -22,7 +40,10 @@ const DevControls: React.FC = () => {
         gap: '8px',
       }}
     >
-      <h3>Dev Controls</h3>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h3>Dev Controls</h3>
+        <button onClick={() => setIsOpen(false)}>Close</button>
+      </div>
       <div>
         <h4>Phase</h4>
         <button
@@ -43,66 +64,32 @@ const DevControls: React.FC = () => {
       <hr />
       <div>
         <h4>Characters</h4>
-        <div>
-          <span>Nyajji:</span>
-          <button
-            onClick={() => {
-              toggleCharacterVisibility(CharacterId.NYAJJI);
-            }}
-          >
-            Toggle Nyajji
-          </button>
-          <button
-            onClick={() => {
-              setCharacterAnimation(
-                CharacterId.NYAJJI,
-                CharacterAnimation.IDLE
-              );
-            }}
-          >
-            Nyajji: Idle
-          </button>
-          <button
-            onClick={() => {
-              setCharacterAnimation(
-                CharacterId.NYAJJI,
-                CharacterAnimation.TALKING
-              );
-            }}
-          >
-            Nyajji: Talking
-          </button>
-        </div>
-        <div>
-          <span>Professor:</span>
-          <button
-            onClick={() => {
-              toggleCharacterVisibility(CharacterId.PROFESSOR_HAWTHORNE);
-            }}
-          >
-            Toggle Professor
-          </button>
-          <button
-            onClick={() => {
-              setCharacterAnimation(
-                CharacterId.PROFESSOR_HAWTHORNE,
-                CharacterAnimation.IDLE
-              );
-            }}
-          >
-            Prof: Idle
-          </button>
-          <button
-            onClick={() => {
-              setCharacterAnimation(
-                CharacterId.PROFESSOR_HAWTHORNE,
-                CharacterAnimation.TALKING
-              );
-            }}
-          >
-            Prof: Talking
-          </button>
-        </div>
+        {Object.values(characterRegistry).map((char) => (
+          <div key={char.id} data-testid={`character-controls-${char.id}`}>
+            <span>{char.displayName}:</span>
+            <button
+              onClick={() => {
+                toggleCharacterVisibility(char.id);
+              }}
+            >
+              Toggle
+            </button>
+            <button
+              onClick={() => {
+                setCharacterAnimation(char.id, CharacterAnimation.IDLE);
+              }}
+            >
+              Idle
+            </button>
+            <button
+              onClick={() => {
+                setCharacterAnimation(char.id, CharacterAnimation.TALKING);
+              }}
+            >
+              Talking
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

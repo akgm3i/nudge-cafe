@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Image } from 'react-konva';
 import Konva from 'konva';
 import { useGameStore } from '../../stores/useGameStore';
-import { CharacterId, CharacterAnimation } from '../../types/character';
+import type { CharacterId } from '../../data/characters';
+import { CharacterAnimation } from '../../types/character';
 
 // Define a mapping for animation states to sprite sheet rows (Y position)
 const ANIMATION_MAP: Record<CharacterAnimation, number> = {

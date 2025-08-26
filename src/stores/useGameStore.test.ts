@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useGameStore } from './useGameStore';
 import { GamePhase, ConsequenceType } from '../types/game';
-import { CharacterAnimation, CharacterId } from '../types/character';
+import { CharacterAnimation, type CharacterId } from '../types/character';
 
 describe('useGameStore', () => {
   // Reset the store's state before each test
@@ -14,24 +14,13 @@ describe('useGameStore', () => {
       phase: GamePhase.EXPERIENCE,
       money: 100,
       activeDialogue: null,
-      // Also reset any new state properties here
-      characters: {
-        [CharacterId.NYAJJI]: {
-          isVisible: true,
-          animation: CharacterAnimation.IDLE,
-        },
-        [CharacterId.PROFESSOR_HAWTHORNE]: {
-          isVisible: true,
-          animation: CharacterAnimation.IDLE,
-        },
-      },
     });
   });
 
   it('handleChoice should process UPDATE_MONEY consequence', () => {
     // Arrange: start a dialogue with a choice that has consequences
     const testDialogue = {
-      characterId: CharacterId.PROFESSOR_HAWTHORNE,
+      characterId: 'professorHawthorne' as CharacterId,
       text: 'Do you want to buy this item for 20 gold?',
       choices: [
         {
@@ -89,12 +78,12 @@ describe('useGameStore', () => {
       const { toggleCharacterVisibility } = useGameStore.getState();
 
       // Toggle Nyajji's visibility
-      toggleCharacterVisibility(CharacterId.NYAJJI);
+      toggleCharacterVisibility('nyajji');
       let characters = useGameStore.getState().characters;
       expect(characters.nyajji.isVisible).toBe(false);
 
       // Toggle it back
-      toggleCharacterVisibility(CharacterId.NYAJJI);
+      toggleCharacterVisibility('nyajji');
       characters = useGameStore.getState().characters;
       expect(characters.nyajji.isVisible).toBe(true);
     });
@@ -103,12 +92,12 @@ describe('useGameStore', () => {
       const { setCharacterAnimation } = useGameStore.getState();
 
       // Change Nyajji's animation to TALKING
-      setCharacterAnimation(CharacterId.NYAJJI, CharacterAnimation.TALKING);
+      setCharacterAnimation('nyajji', CharacterAnimation.TALKING);
       let characters = useGameStore.getState().characters;
       expect(characters.nyajji.animation).toBe(CharacterAnimation.TALKING);
 
       // Change it back to IDLE
-      setCharacterAnimation(CharacterId.NYAJJI, CharacterAnimation.IDLE);
+      setCharacterAnimation('nyajji', CharacterAnimation.IDLE);
       characters = useGameStore.getState().characters;
       expect(characters.nyajji.animation).toBe(CharacterAnimation.IDLE);
     });
@@ -116,7 +105,7 @@ describe('useGameStore', () => {
     it('startDialogue should set the speaking character animation to TALKING', () => {
       const { startDialogue } = useGameStore.getState();
       const testDialogue = {
-        characterId: CharacterId.PROFESSOR_HAWTHORNE,
+        characterId: 'professorHawthorne' as CharacterId,
         text: 'Hello there!',
         choices: [{ id: '1', text: 'Hi' }],
       };
@@ -124,19 +113,17 @@ describe('useGameStore', () => {
       startDialogue(testDialogue);
 
       const { characters } = useGameStore.getState();
-      expect(characters[CharacterId.PROFESSOR_HAWTHORNE].animation).toBe(
+      expect(characters['professorHawthorne'].animation).toBe(
         CharacterAnimation.TALKING
       );
       // Other characters should remain idle
-      expect(characters[CharacterId.NYAJJI].animation).toBe(
-        CharacterAnimation.IDLE
-      );
+      expect(characters['nyajji'].animation).toBe(CharacterAnimation.IDLE);
     });
 
     it('endDialogue should reset the speaking character animation to IDLE', () => {
       const { startDialogue, endDialogue } = useGameStore.getState();
       const testDialogue = {
-        characterId: CharacterId.PROFESSOR_HAWTHORNE,
+        characterId: 'professorHawthorne' as CharacterId,
         text: 'Hello there!',
         choices: [{ id: '1', text: 'Hi' }],
       };
@@ -144,15 +131,14 @@ describe('useGameStore', () => {
       // Start dialogue to set to TALKING
       startDialogue(testDialogue);
       expect(
-        useGameStore.getState().characters[CharacterId.PROFESSOR_HAWTHORNE]
-          .animation
+        useGameStore.getState().characters['professorHawthorne'].animation
       ).toBe(CharacterAnimation.TALKING);
 
       // End dialogue
       endDialogue();
 
       const { characters } = useGameStore.getState();
-      expect(characters[CharacterId.PROFESSOR_HAWTHORNE].animation).toBe(
+      expect(characters['professorHawthorne'].animation).toBe(
         CharacterAnimation.IDLE
       );
     });

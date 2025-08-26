@@ -3,7 +3,7 @@ import { render } from 'vitest-browser-react';
 import MainLayout from './MainLayout';
 import { useGameStore } from '../stores/useGameStore';
 import { GamePhase } from '../types/game';
-import { CharacterId, CharacterAnimation } from '../types/character';
+import { type CharacterId, CharacterAnimation } from '../types/character';
 
 // Mock the CafeScene component to avoid rendering the canvas and actual characters
 vi.mock('./Cafe/CafeScene', () => {
@@ -20,11 +20,11 @@ describe('MainLayout', () => {
       money: 100,
       activeDialogue: null,
       characters: {
-        [CharacterId.NYAJJI]: {
+        nyajji: {
           isVisible: true,
           animation: CharacterAnimation.IDLE,
         },
-        [CharacterId.PROFESSOR_HAWTHORNE]: {
+        professorHawthorne: {
           isVisible: true,
           animation: CharacterAnimation.IDLE,
         },
@@ -41,7 +41,7 @@ describe('MainLayout', () => {
     expect(heading).toBeNull();
 
     const testDialogue = {
-      characterId: CharacterId.PROFESSOR_HAWTHORNE,
+      characterId: 'professorHawthorne' as CharacterId,
       text: 'テスト用の会話です。',
       choices: [{ id: 'ok', text: 'OK' }],
     };
@@ -102,7 +102,7 @@ describe('MainLayout', () => {
 
     // Trigger a state change that affects money
     const testDialogue = {
-      characterId: CharacterId.PROFESSOR_HAWTHORNE,
+      characterId: 'professorHawthorne' as CharacterId,
       text: 'Test',
       choices: [
         {

@@ -4,13 +4,13 @@ import { render } from 'vitest-browser-react';
 import DialogueModal from './DialogueModal';
 import React from 'react';
 
-import { CharacterId } from '../types/character';
+import { type CharacterId } from '../types/character';
 
 test('DialogueModal should render dialogue, choices, and call onSelectChoice when a choice is made', async () => {
   // Arrange
   const handleSelectChoice = vi.fn();
   const dialogueProps = {
-    characterId: CharacterId.PROFESSOR_HAWTHORNE,
+    characterId: 'professorHawthorne' as CharacterId,
     text: '良い品があるんだ、見ていかないかい？',
     choices: [
       { id: 'buy', text: '買う' },

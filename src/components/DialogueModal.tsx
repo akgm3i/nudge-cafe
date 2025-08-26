@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './DialogueModal.module.css';
 import type { Dialogue } from '../types/game';
-import { CharacterId } from '../types/character';
+import { characterRegistry, type CharacterId } from '../data/characters';
 
 const CHARACTER_DISPLAY_NAMES: Record<CharacterId, string> = {
-  [CharacterId.NYAJJI]: 'ニャッジ',
-  [CharacterId.PROFESSOR_HAWTHORNE]: 'ホーソーン教授',
+  nyajji: 'ニャッジ',
+  professorHawthorne: 'ホーソーン教授',
 };
 
 interface DialogueModalProps extends Dialogue {

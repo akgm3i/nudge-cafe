@@ -21,7 +21,7 @@ export interface Choice {
   consequences?: Consequence[];
 }
 
-import { CharacterId } from './character';
+import type { CharacterId } from '../data/characters';
 
 export interface Dialogue {
   characterId: CharacterId;
