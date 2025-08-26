@@ -10,8 +10,10 @@ export interface Choice {
   text: string;
 }
 
+import { CharacterId } from './character';
+
 export interface Dialogue {
-  npcName: string;
+  characterId: CharacterId;
   text: string;
   choices: Choice[];
 }

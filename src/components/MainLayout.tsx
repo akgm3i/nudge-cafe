@@ -15,7 +15,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     <div className={styles.container}>
       {activeDialogue && (
         <DialogueModal
-          npcName={activeDialogue.npcName}
+          characterId={activeDialogue.characterId}
           text={activeDialogue.text}
           choices={activeDialogue.choices}
           onSelectChoice={handleChoice}
