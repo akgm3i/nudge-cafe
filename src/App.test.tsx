@@ -4,7 +4,7 @@ import { render } from 'vitest-browser-react';
 import App from './App';
 
 test('renders dev controls and initial view', async () => {
-  const screen = await render(<App />);
+  const screen = render(<App />);
 
   // Check that the dev controls are visible
   const devControlsHeader = screen.getByRole('heading', {

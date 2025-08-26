@@ -24,7 +24,6 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      '@typescript-eslint/await-thenable': 'off',
     },
     languageOptions: {
       parserOptions: {

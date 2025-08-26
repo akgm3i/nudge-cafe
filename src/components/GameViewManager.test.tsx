@@ -26,8 +26,11 @@ vi.mock('./Notebook', () => ({
 describe('GameViewManager', () => {
   it('should render CafeScene when phase is EXPERIENCE', async () => {
     // Arrange
-    vi.mocked(useGameStore).mockReturnValue({ phase: GamePhase.EXPERIENCE });
-    const screen = await render(<GameViewManager />);
+    vi.mocked(useGameStore).mockReturnValue({
+      phase: GamePhase.EXPERIENCE,
+      setPhase: vi.fn(),
+    });
+    const screen = render(<GameViewManager />);
 
     // Assert: Check for the main landmark role of the cafe scene
     await expect.element(screen.getByRole('main')).toBeVisible();
@@ -41,8 +44,9 @@ describe('GameViewManager', () => {
     // Arrange
     vi.mocked(useGameStore).mockReturnValue({
       phase: GamePhase.AWAITING_HYPOTHESIS,
+      setPhase: vi.fn(),
     });
-    const screen = await render(<GameViewManager />);
+    const screen = render(<GameViewManager />);
 
     // Assert: Check for the notebook heading
     await expect
