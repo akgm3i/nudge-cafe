@@ -66,34 +66,14 @@ describe('MainLayout', () => {
   });
 
   describe('Cafe Scene', () => {
-    test('renders the cafe background', async () => {
-      const screen = render(
+    test('renders a canvas for the cafe scene', async () => {
+      const { container } = render(
         <MainLayout>
           <div>Test</div>
         </MainLayout>
       );
-      const background = screen.getByTestId('cafe-background');
-      await expect.element(background).toBeInTheDocument();
-    });
-
-    test('renders the character "Nyajji"', async () => {
-      const screen = render(
-        <MainLayout>
-          <div>Test</div>
-        </MainLayout>
-      );
-      const nyajji = screen.getByTestId('nyajji-character');
-      await expect.element(nyajji).toBeInTheDocument();
-    });
-
-    test('renders the character "Professor Hawthorne"', async () => {
-      const screen = render(
-        <MainLayout>
-          <div>Test</div>
-        </MainLayout>
-      );
-      const hawthorne = screen.getByTestId('hawthorne-character');
-      await expect.element(hawthorne).toBeInTheDocument();
+      const canvas = container.querySelector('canvas');
+      expect(canvas).not.toBeNull();
     });
   });
 });

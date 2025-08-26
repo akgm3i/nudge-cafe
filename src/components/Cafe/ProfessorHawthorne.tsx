@@ -1,7 +1,16 @@
 import React from 'react';
+import Character from './Character';
 
 const ProfessorHawthorne: React.FC = () => {
-  return <div data-testid="hawthorne-character" style={{ width: '50px', height: '50px', backgroundColor: 'brown' }}>Professor Hawthorne</div>;
+  return (
+    <Character
+      x={200}
+      y={100}
+      color="saddlebrown"
+      name="hawthorne-character"
+      text="Professor"
+    />
+  );
 };
 
 export default ProfessorHawthorne;

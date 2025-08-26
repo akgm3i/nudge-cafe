@@ -1,18 +1,20 @@
 import React from 'react';
+import { Rect } from 'react-konva';
 
-const CafeBackground: React.FC = () => {
+interface CafeBackgroundProps {
+  width: number;
+  height: number;
+}
+
+const CafeBackground: React.FC<CafeBackgroundProps> = ({ width, height }) => {
   return (
-    <div
-      data-testid="cafe-background"
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#f0e6d2',
-        zIndex: -1,
-      }}
+    <Rect
+      x={0}
+      y={0}
+      width={width}
+      height={height}
+      fill="#f0e6d2"
+      name="cafe-background"
     />
   );
 };
