@@ -1,5 +1,7 @@
 import React, { type ReactNode } from 'react';
 import styles from './MainLayout.module.css';
+import { useGameStore } from '../stores/useGameStore';
+import DialogueModal from './DialogueModal';
 import CafeScene from './Cafe/CafeScene';
 
 interface MainLayoutProps {
@@ -7,12 +9,22 @@ interface MainLayoutProps {
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+  const { activeDialogue, handleChoice, money } = useGameStore();
+
   return (
     <div className={styles.container}>
+      {activeDialogue && (
+        <DialogueModal
+          npcName={activeDialogue.npcName}
+          text={activeDialogue.text}
+          choices={activeDialogue.choices}
+          onSelectChoice={handleChoice}
+        />
+      )}
       <header role="banner" className={styles.header}>
         <div className={styles.headerContent}>
           <div>
-            <span className={styles.resource}>🪙 100</span>
+            <span className={styles.resource}>🪙 {money}</span>
             <span>⭐ 5</span>
           </div>
           <button aria-label="設定">⚙️</button>
