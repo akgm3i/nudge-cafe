@@ -66,7 +66,7 @@ describe('MainLayout', () => {
 
     // Check for resource placeholders by looking for the icons and numbers
     const initialMoney = useGameStore.getState().money;
-    const moneyDisplay = screen.getByText(`🪙 ${initialMoney}`);
+    const moneyDisplay = screen.getByText(`🪙 ${String(initialMoney)}`);
     const reputationDisplay = screen.getByText(/⭐\s*5/); // Assuming reputation is static for now
     await expect.element(moneyDisplay).toBeInTheDocument();
     await expect.element(reputationDisplay).toBeInTheDocument();
