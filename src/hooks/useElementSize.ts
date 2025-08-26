@@ -10,20 +10,16 @@ export function useElementSize(ref: RefObject<HTMLElement>) {
       return;
     }
 
-    const resizeObserver = new ResizeObserver(() => {
+    const updateSize = () => {
       setSize({
         width: element.offsetWidth,
         height: element.offsetHeight,
       });
-    });
+    };
 
+    const resizeObserver = new ResizeObserver(updateSize);
     resizeObserver.observe(element);
-
-    // Set initial size
-    setSize({
-      width: element.offsetWidth,
-      height: element.offsetHeight,
-    });
+    updateSize();
 
     return () => {
       resizeObserver.disconnect();
