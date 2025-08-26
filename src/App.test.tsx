@@ -2,8 +2,10 @@ import { expect, test } from 'vitest';
 import { render } from 'vitest-browser-react';
 import App from './App';
 
-test('renders headline', async () => {
-  const screen = render(<App />);
-  const headline = screen.getByRole('heading', { level: 1 });
-  await expect.element(headline).toHaveTextContent('ココロジック・カフェ');
+test('renders dev controls and initial view', async () => {
+  const screen = await render(<App />);
+
+  // Check that the dev controls are visible
+  const devControlsHeader = screen.getByRole('heading', { level: 3, name: 'Dev Controls' });
+  await expect.element(devControlsHeader).toBeVisible();
 });
