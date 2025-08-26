@@ -6,6 +6,9 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
   base: '/nudge-cafe/',
   plugins: [react()],
+  optimizeDeps: {
+    include: ['zustand'],
+  },
   test: {
     browser: {
       provider: 'playwright',
