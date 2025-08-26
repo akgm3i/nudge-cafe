@@ -8,5 +8,7 @@ interface GameState {
 
 export const useGameStore = create<GameState>((set) => ({
   phase: GamePhase.EXPERIENCE,
-  setPhase: (newPhase) => set({ phase: newPhase }),
+  setPhase: (newPhase) => {
+    set({ phase: newPhase });
+  },
 }));

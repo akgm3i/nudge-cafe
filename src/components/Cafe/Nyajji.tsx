@@ -28,7 +28,8 @@ const Nyajji: React.FC = () => {
 
     const anim = new Konva.Animation((frame) => {
       if (!frame) return;
-      const frameIndex = Math.floor(frame.time / ANIMATION_SPEED_MS) % FRAME_COUNT;
+      const frameIndex =
+        Math.floor(frame.time / ANIMATION_SPEED_MS) % FRAME_COUNT;
       if (frameIndex !== currentFrame) {
         currentFrame = frameIndex;
         node.cropX(currentFrame * FRAME_WIDTH);
