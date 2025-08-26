@@ -66,7 +66,7 @@ describe('MainLayout', () => {
   });
 
   describe('Cafe Scene', () => {
-    test('renders a canvas for the cafe scene', async () => {
+    test('renders a canvas for the cafe scene', () => {
       const { container } = render(
         <MainLayout>
           <div>Test</div>

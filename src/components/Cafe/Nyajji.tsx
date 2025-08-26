@@ -25,7 +25,7 @@ const Nyajji: React.FC = () => {
     const frameCount = 2;
     let currentFrame = 0;
 
-    const anim = new Konva.Animation(frame => {
+    const anim = new Konva.Animation((frame) => {
       if (!frame) return;
       // Switch frame every 500ms
       const frameIndex = Math.floor(frame.time / 500) % frameCount;

@@ -5,6 +5,7 @@ export function useElementSize(ref: RefObject<HTMLElement>) {
 
   useLayoutEffect(() => {
     const element = ref.current;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!element) {
       return;
     }
@@ -20,8 +21,8 @@ export function useElementSize(ref: RefObject<HTMLElement>) {
 
     // Set initial size
     setSize({
-        width: element.offsetWidth,
-        height: element.offsetHeight,
+      width: element.offsetWidth,
+      height: element.offsetHeight,
     });
 
     return () => {
