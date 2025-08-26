@@ -64,4 +64,16 @@ describe('MainLayout', () => {
     const child = screen.getByRole('heading', { level: 1 });
     await expect.element(child).toHaveTextContent('Child Content');
   });
+
+  describe('Cafe Scene', () => {
+    test('renders a canvas for the cafe scene', () => {
+      const { container } = render(
+        <MainLayout>
+          <div>Test</div>
+        </MainLayout>
+      );
+      const canvas = container.querySelector('canvas');
+      expect(canvas).not.toBeNull();
+    });
+  });
 });
