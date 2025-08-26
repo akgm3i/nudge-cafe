@@ -26,7 +26,9 @@ const DialogueModal: React.FC<DialogueModalProps> = ({
             <button
               key={choice.id}
               className={styles.choiceButton}
-              onClick={() => onSelectChoice(choice.id)}
+              onClick={() => {
+                onSelectChoice(choice.id);
+              }}
             >
               {choice.text}
             </button>
