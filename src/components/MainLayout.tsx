@@ -1,5 +1,6 @@
 import React, { type ReactNode } from 'react';
 import styles from './MainLayout.module.css';
+import CafeScene from './Cafe/CafeScene';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -19,6 +20,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       </header>
 
       <main role="main" className={styles.main}>
+        <CafeScene />
         {children}
       </main>
 
