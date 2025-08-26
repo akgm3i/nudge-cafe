@@ -5,9 +5,20 @@ export enum GamePhase {
   AWAITING_COMPLETION = 'AWAITING_COMPLETION',
 }
 
+export enum ConsequenceType {
+  UPDATE_MONEY = 'UPDATE_MONEY',
+  START_DIALOGUE = 'START_DIALOGUE',
+}
+
+export interface Consequence {
+  type: ConsequenceType;
+  payload: unknown;
+}
+
 export interface Choice {
   id: string;
   text: string;
+  consequences?: Consequence[];
 }
 
 import { CharacterId } from './character';

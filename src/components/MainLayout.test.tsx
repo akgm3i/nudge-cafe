@@ -104,7 +104,13 @@ describe('MainLayout', () => {
     const testDialogue = {
       characterId: CharacterId.PROFESSOR_HAWTHORNE,
       text: 'Test',
-      choices: [{ id: 'buy', text: 'Buy' }],
+      choices: [
+        {
+          id: 'buy',
+          text: 'Buy',
+          consequences: [{ type: 'UPDATE_MONEY', payload: -10 }],
+        },
+      ],
     };
     useGameStore.getState().startDialogue(testDialogue);
     useGameStore.getState().handleChoice('buy');

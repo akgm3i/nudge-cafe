@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { GamePhase, type Dialogue } from '../types/game';
+import { GamePhase, type Dialogue, ConsequenceType } from '../types/game';
 import {
   type CharacterState,
   CharacterId,
@@ -72,12 +72,26 @@ export const useGameStore = create<GameState>((set, get) => ({
     });
   },
   handleChoice: (choiceId) => {
-    // This is a simplified logic. A real implementation would
-    // have the consequences defined in the dialogue data itself.
-    if (choiceId === 'buy') {
-      const currentMoney = get().money;
-      set({ money: currentMoney - 10 });
+    const { activeDialogue } = get();
+    if (!activeDialogue) return;
+
+    const choice = activeDialogue.choices.find((c) => c.id === choiceId);
+    if (!choice) return;
+
+    // Process consequences
+    if (choice.consequences) {
+      let currentMoney = get().money;
+      for (const consequence of choice.consequences) {
+        switch (consequence.type) {
+          case ConsequenceType.UPDATE_MONEY:
+            currentMoney += consequence.payload as number;
+            break;
+          // Other consequence types can be handled here in the future
+        }
+      }
+      set({ money: currentMoney });
     }
+
     // Any choice ends the dialogue
     get().endDialogue();
   },

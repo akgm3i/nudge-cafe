@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useGameStore } from './useGameStore';
-import { GamePhase } from '../types/game';
-
+import { GamePhase, ConsequenceType } from '../types/game';
 import { CharacterAnimation, CharacterId } from '../types/character';
 
 describe('useGameStore', () => {
@@ -17,11 +16,11 @@ describe('useGameStore', () => {
       activeDialogue: null,
       // Also reset any new state properties here
       characters: {
-        nyajji: {
+        [CharacterId.NYAJJI]: {
           isVisible: true,
           animation: CharacterAnimation.IDLE,
         },
-        professorHawthorne: {
+        [CharacterId.PROFESSOR_HAWTHORNE]: {
           isVisible: true,
           animation: CharacterAnimation.IDLE,
         },
@@ -29,24 +28,30 @@ describe('useGameStore', () => {
     });
   });
 
-  it('handleChoice should update money and end dialogue for "buy" choice', () => {
-    // Arrange: start a dialogue
+  it('handleChoice should process UPDATE_MONEY consequence', () => {
+    // Arrange: start a dialogue with a choice that has consequences
     const testDialogue = {
       characterId: CharacterId.PROFESSOR_HAWTHORNE,
-      text: 'Test',
-      choices: [{ id: 'buy', text: 'Buy' }],
+      text: 'Do you want to buy this item for 20 gold?',
+      choices: [
+        {
+          id: 'buy-item',
+          text: 'Yes, buy it.',
+          consequences: [{ type: ConsequenceType.UPDATE_MONEY, payload: -20 }],
+        },
+        { id: 'dont-buy', text: 'No, thanks.' },
+      ],
     };
     useGameStore.getState().startDialogue(testDialogue);
     expect(useGameStore.getState().money).toBe(100);
-    expect(useGameStore.getState().activeDialogue).not.toBeNull();
 
     // Act
-    useGameStore.getState().handleChoice('buy');
+    useGameStore.getState().handleChoice('buy-item');
 
     // Assert
     const state = useGameStore.getState();
-    expect(state.money).toBe(90);
-    expect(state.activeDialogue).toBeNull();
+    expect(state.money).toBe(80); // 100 - 20 = 80
+    expect(state.activeDialogue).toBeNull(); // Dialogue should still end
   });
 
   it('should initialize with the EXPERIENCE phase', () => {
