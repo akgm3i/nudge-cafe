@@ -21,17 +21,17 @@ const Nyajji: React.FC = () => {
       return;
     }
 
-    const frameWidth = 100;
-    const frameCount = 2;
+    const FRAME_WIDTH = 100;
+    const FRAME_COUNT = 2;
+    const ANIMATION_SPEED_MS = 500;
     let currentFrame = 0;
 
     const anim = new Konva.Animation((frame) => {
       if (!frame) return;
-      // Switch frame every 500ms
-      const frameIndex = Math.floor(frame.time / 500) % frameCount;
+      const frameIndex = Math.floor(frame.time / ANIMATION_SPEED_MS) % FRAME_COUNT;
       if (frameIndex !== currentFrame) {
         currentFrame = frameIndex;
-        node.cropX(currentFrame * frameWidth);
+        node.cropX(currentFrame * FRAME_WIDTH);
       }
     }, node.getLayer());
 
