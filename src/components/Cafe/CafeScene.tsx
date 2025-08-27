@@ -18,7 +18,6 @@ const CafeScene: React.FC = () => {
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: -1,
       }}
     >
       <Stage width={width} height={height}>

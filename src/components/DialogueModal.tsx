@@ -3,10 +3,6 @@ import styles from './DialogueModal.module.css';
 import type { Dialogue } from '../types/game';
 import { characterRegistry, type CharacterId } from '../data/characters';
 
-const CHARACTER_DISPLAY_NAMES: Record<CharacterId, string> = {
-  nyajji: 'ニャッジ',
-  professorHawthorne: 'ホーソーン教授',
-};
 
 interface DialogueModalProps extends Dialogue {
   onSelectChoice: (choiceId: string) => void;
@@ -18,7 +14,7 @@ const DialogueModal: React.FC<DialogueModalProps> = ({
   choices,
   onSelectChoice,
 }) => {
-  const npcName = CHARACTER_DISPLAY_NAMES[characterId] || '???';
+  const npcName = characterRegistry[characterId]?.displayName ?? '???';
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>

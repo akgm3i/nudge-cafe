@@ -18,7 +18,9 @@ const DevControls: React.FC = () => {
           left: 10,
           zIndex: 9999,
         }}
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true);
+        }}
       >
         Open Dev Controls
       </button>
@@ -42,7 +44,13 @@ const DevControls: React.FC = () => {
     >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h3>Dev Controls</h3>
-        <button onClick={() => setIsOpen(false)}>Close</button>
+        <button
+          onClick={() => {
+            setIsOpen(false);
+          }}
+        >
+          Close
+        </button>
       </div>
       <div>
         <h4>Phase</h4>

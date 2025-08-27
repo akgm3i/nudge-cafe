@@ -1,19 +1,19 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { useGameStore } from './useGameStore';
+import { useGameStore, initialCharacterStates } from './useGameStore';
 import { GamePhase, ConsequenceType } from '../types/game';
 import { CharacterAnimation, type CharacterId } from '../types/character';
 
 describe('useGameStore', () => {
+  const initialState = useGameStore.getState();
+
   // Reset the store's state before each test
   beforeEach(() => {
-    // We need to reset the entire store to its initial state
-    // This is because Zustand's `create` is only called once.
-    const initialState = useGameStore.getState();
     useGameStore.setState({
       ...initialState,
       phase: GamePhase.EXPERIENCE,
       money: 100,
       activeDialogue: null,
+      characters: initialCharacterStates,
     });
   });
 
@@ -113,11 +113,11 @@ describe('useGameStore', () => {
       startDialogue(testDialogue);
 
       const { characters } = useGameStore.getState();
-      expect(characters['professorHawthorne'].animation).toBe(
+      expect(characters.professorHawthorne.animation).toBe(
         CharacterAnimation.TALKING
       );
       // Other characters should remain idle
-      expect(characters['nyajji'].animation).toBe(CharacterAnimation.IDLE);
+      expect(characters.nyajji.animation).toBe(CharacterAnimation.IDLE);
     });
 
     it('endDialogue should reset the speaking character animation to IDLE', () => {
@@ -131,14 +131,14 @@ describe('useGameStore', () => {
       // Start dialogue to set to TALKING
       startDialogue(testDialogue);
       expect(
-        useGameStore.getState().characters['professorHawthorne'].animation
+        useGameStore.getState().characters.professorHawthorne.animation
       ).toBe(CharacterAnimation.TALKING);
 
       // End dialogue
       endDialogue();
 
       const { characters } = useGameStore.getState();
-      expect(characters['professorHawthorne'].animation).toBe(
+      expect(characters.professorHawthorne.animation).toBe(
         CharacterAnimation.IDLE
       );
     });

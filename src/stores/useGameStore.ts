@@ -3,7 +3,7 @@ import { GamePhase, type Dialogue, ConsequenceType } from '../types/game';
 import { characterRegistry, type CharacterId } from '../data/characters';
 import { type CharacterState, CharacterAnimation } from '../types/character';
 
-const initialCharacterStates = Object.fromEntries(
+export const initialCharacterStates = Object.fromEntries(
   Object.values(characterRegistry).map((char) => [
     char.id,
     {
