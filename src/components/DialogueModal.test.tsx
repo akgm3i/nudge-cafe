@@ -4,11 +4,13 @@ import { render } from 'vitest-browser-react';
 import DialogueModal from './DialogueModal';
 import React from 'react';
 
+import { type CharacterId } from '../types/character';
+
 test('DialogueModal should render dialogue, choices, and call onSelectChoice when a choice is made', async () => {
   // Arrange
   const handleSelectChoice = vi.fn();
   const dialogueProps = {
-    npcName: '行商人',
+    characterId: 'professorHawthorne' as CharacterId,
     text: '良い品があるんだ、見ていかないかい？',
     choices: [
       { id: 'buy', text: '買う' },
@@ -22,7 +24,7 @@ test('DialogueModal should render dialogue, choices, and call onSelectChoice whe
 
   // Assert
   // Check if NPC name and dialogue text are visible
-  const npcNameElement = screen.getByText('行商人');
+  const npcNameElement = screen.getByText('ホーソーン教授');
   await expect.element(npcNameElement).toBeVisible();
 
   const textElement = screen.getByText('良い品があるんだ、見ていかないかい？');

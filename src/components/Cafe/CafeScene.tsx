@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { useElementSize } from '../../hooks/useElementSize';
 import CafeBackground from './CafeBackground';
-import Nyajji from './Nyajji';
-import ProfessorHawthorne from './ProfessorHawthorne';
+import { characterRegistry } from '../../data/characters';
+import AnimatedCharacter from './AnimatedCharacter';
 
 const CafeScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,14 +18,20 @@ const CafeScene: React.FC = () => {
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: -1,
       }}
     >
       <Stage width={width} height={height}>
         <Layer>
           <CafeBackground width={width} height={height} />
-          <Nyajji />
-          <ProfessorHawthorne />
+          {Object.values(characterRegistry).map((char) => (
+            <AnimatedCharacter
+              key={char.id}
+              characterId={char.id}
+              spriteSrc={char.spriteSrc}
+              x={char.initialX}
+              y={char.initialY}
+            />
+          ))}
         </Layer>
       </Stage>
     </div>

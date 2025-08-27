@@ -1,17 +1,20 @@
 import React from 'react';
 import styles from './DialogueModal.module.css';
 import type { Dialogue } from '../types/game';
+import { characterRegistry, type CharacterId } from '../data/characters';
+
 
 interface DialogueModalProps extends Dialogue {
   onSelectChoice: (choiceId: string) => void;
 }
 
 const DialogueModal: React.FC<DialogueModalProps> = ({
-  npcName,
+  characterId,
   text,
   choices,
   onSelectChoice,
 }) => {
+  const npcName = characterRegistry[characterId]?.displayName ?? '???';
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
